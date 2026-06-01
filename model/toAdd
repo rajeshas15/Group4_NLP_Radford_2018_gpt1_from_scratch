@@ -1,0 +1,39 @@
+import torch
+from pathlib import Path
+
+
+# https://stackoverflow.com/questions/48152674/how-do-i-check-if-pytorch-is-using-the-gpu
+def get_device():
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(f"Device in use is: {device}")
+    return device
+
+
+def load_data(file_path):
+    file_path = Path(file_path)
+    
+    with open(file_path, "r", encoding="utf-8") as file:
+        data = file.readlines()
+
+    data = [line.strip() for line in data if line.strip()]
+    print(f"Number of sentences/documents loaded: {len(data)}")
+    return data
+
+
+# Calculates and prints the vocabulary size of the entire dataset
+def print_vocab_size(data):
+    vocab = set()
+
+    for sentence in data:
+        tokens = sentence.lower().split() # in orded to treat "A" and "a" the same
+        vocab.update(tokens)
+
+    vocab_size = len(vocab)
+    print(f"Vocabulary size: {vocab_size}")
+    return vocab_size
+
+
+# Usage:
+# device = get_device()
+# data = load_data(".../file.xxx")
+# vocab_size = print_vocab_size(data)
