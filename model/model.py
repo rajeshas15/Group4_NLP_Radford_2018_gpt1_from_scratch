@@ -1,13 +1,4 @@
-"""a decoder-only Transformer language model.
 
-Implements Section 3.1 of Radford et al. (2018).
-
-  h_0 = U W_e + W_p
-  h_l = transformer_block(h_{l-1})  for l = 1..n
-  P(u) = softmax(h_n W_e^T)
-
-All ops are written from scratch
-"""
 from __future__ import annotations
 
 import math
